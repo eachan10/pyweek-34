@@ -65,7 +65,7 @@ while 1:  # game loop
     if up and can_jump:
         velocity.y = -9
         can_jump = False
-    velocity.y += 0.7
+    velocity.y += 0.7  # gravity
     position.x += velocity.x
     position.y += velocity.y
     scroll = -(position.x % bg.get_width())
