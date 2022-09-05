@@ -9,14 +9,17 @@ from vector import Vector
 
 pygame.init()
 
+# window stuff
 screen_size = width, height = 800, 300
 screen = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
+# background image scrolling
 bg = pygame.image.load("assets/background.jpg").convert()
 tiles = math.ceil(width / bg.get_width()) + 1
 scroll = 0
 
+# player stuff
 speed = 2
 velocity = Vector()
 position = Vector()
@@ -24,6 +27,7 @@ size = 10, 20
 player = pygame.Rect(400, 0, *size)
 left = right = up = down = can_jump = False
 
+# for debug text
 font = pygame.font.SysFont("consolas", 30)
 
 while 1:  # game loop
@@ -52,6 +56,7 @@ while 1:  # game loop
                 up = False
 
 
+    # movement
     velocity.x = 0
     if left:
         velocity.x -= speed
@@ -66,16 +71,19 @@ while 1:  # game loop
     scroll = -(position.x % bg.get_width())
     player.move_ip(0, velocity.y * time_scale)
 
+    # don't let the player fall forever
     if player.y > 200:
         player.y = position.y = 200
         velocity.y = 0
         can_jump = True
 
+    # draw the background
     screen.fill((200, 200, 200))
     for i in range(tiles):
         screen.blit(bg, (bg.get_width()*i + scroll, 0))
     pygame.draw.rect(screen, (0, 0, 0), player)
 
+    # debug text?
     pos_text = font.render(f"x: {position.x} y: {position.y}", False, (0, 0, 0), None)
     screen.blit(pos_text, (10, 10))
 
