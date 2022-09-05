@@ -2,9 +2,6 @@ import math
 import sys
 import pygame
 
-import os
-os.environ["SDL_VIDEODRIVER"]="x11"
-
 from vector import Vector
 
 pygame.init()
